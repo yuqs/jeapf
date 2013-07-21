@@ -6,6 +6,14 @@ body {
 	border:0;
 }
 
+img {
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	display:inline;
+}
+
 td,p,div,a {
 	marign:0;
 	font-size:12px;
@@ -353,4 +361,12 @@ a.btnSelect {
 	float:left; 
 	margin-right:3px;
 	padding-left: 5px;
+}
+
+#switchpic {
+	width: 6px;
+	cursor:pointer;
+	clear: both;
+	vertical-align: bottom;
+	margin-top: 220px;
 }

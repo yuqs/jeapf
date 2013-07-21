@@ -42,6 +42,16 @@ public class PlatformContoller {
 	}
 	
 	/**
+	 * 如果首页为frameset布局，则存在middle时
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/middle" ,method=RequestMethod.GET)
+	public String middle(Model model) {
+		return "system/middle";
+	}
+	
+	/**
 	 * 如果首页为frameset布局，则存在right
 	 * @param model
 	 * @return
