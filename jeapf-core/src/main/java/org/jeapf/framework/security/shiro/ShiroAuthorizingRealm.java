@@ -52,12 +52,13 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm {
 		//获取当前登录的用户名
 		ShiroPrincipal subject = (ShiroPrincipal)super.getAvailablePrincipal(principals);
 		String username = subject.getUsername();
+		Long userId = subject.getId();
 		log.info("用户【" + username + "】授权开始......");
 		try {
 			if(!subject.isAuthorized()) {
 				//根据用户名称，获取该用户所有的权限列表
-				List<String> authorities = userManager.getAuthoritiesName(username);
-				List<String> rolelist = userManager.getRolesName(username);
+				List<String> authorities = userManager.getAuthoritiesName(userId);
+				List<String> rolelist = userManager.getRolesName(userId);
 				subject.setAuthorities(authorities);
 				subject.setRoles(rolelist);
 				subject.setAuthorized(true);

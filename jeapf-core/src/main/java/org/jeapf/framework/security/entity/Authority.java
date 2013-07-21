@@ -37,6 +37,16 @@ public class Authority extends SecurityEntity
 	private List<Role> roles = new ArrayList<Role>();
     //权限包含的用户列表（多对多关联）这里表示：用户既可以指定角色，也可指定单独的权限
     private List<User> users = new ArrayList<User>();
+    
+    public Authority() {}
+    
+    /**
+     * 构造函数，参数为主键ID
+     * @param id
+     */
+    public Authority(Long id) {
+    	this.id = id;
+    }
 	
     @Column(name = "name", unique = true, nullable = false, length = 200)
 	public String getName() {

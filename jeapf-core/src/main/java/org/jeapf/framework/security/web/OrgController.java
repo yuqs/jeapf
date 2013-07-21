@@ -54,7 +54,7 @@ public class OrgController {
 	 */
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public String create(Model model) {
-		model.addAttribute("org", new Org());
+		model.addAttribute("org", new Org(null));
 		return "security/orgEdit";
 	}
 
@@ -90,8 +90,7 @@ public class OrgController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(Org org, Long parentOrgId) {
 		if(parentOrgId != null && parentOrgId.longValue() > 0) {
-			Org parent = new Org();
-			parent.setId(parentOrgId);
+			Org parent = new Org(parentOrgId);
 			org.setParentOrg(parent);
 		}
 		orgManager.save(org);

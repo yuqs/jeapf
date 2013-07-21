@@ -119,8 +119,7 @@ public class UserController {
 			}
 		}
 		if(parentOrgId != null && parentOrgId.longValue() > 0) {
-			Org parent = new Org();
-			parent.setId(parentOrgId);
+			Org parent = new Org(parentOrgId);
 			user.setOrg(parent);
 		}
 		userManager.save(user);

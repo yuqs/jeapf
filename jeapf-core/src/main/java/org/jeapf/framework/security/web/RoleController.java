@@ -112,8 +112,7 @@ public class RoleController {
 	public String update(Role role, Long[] orderIndexs) {
 		if(orderIndexs != null) {
 			for(Long order : orderIndexs) {
-				Authority auth = new Authority();
-				auth.setId(order);
+				Authority auth = new Authority(order);
 				role.getAuthorities().add(auth);
 			}
 		}

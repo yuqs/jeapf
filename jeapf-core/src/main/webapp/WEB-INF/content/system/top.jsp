@@ -19,7 +19,7 @@
 <body>
 <div id="navigation">
     <div class="container-fluid">
-        <a href="#" id="brand">后台管理</a>
+        <a href="#" id="brand" onclick="window.parent.location.href='${ctx }/index'">后台管理</a>
         <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="右边栏">
             <i class="icon-reorder"></i>
         </a>

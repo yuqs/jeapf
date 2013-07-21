@@ -54,7 +54,7 @@ public class ResourceController {
 	 */
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public String create(Model model) {
-		model.addAttribute("resource", new Resource());
+		model.addAttribute("resource", new Resource(null));
 		return "security/resourceEdit";
 	}
 
@@ -90,8 +90,7 @@ public class ResourceController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(Resource resource, Long parentMenuId) {
 		if(parentMenuId != null && parentMenuId.longValue() > 0) {
-			Menu menu = new Menu();
-			menu.setId(parentMenuId);
+			Menu menu = new Menu(parentMenuId);
 			resource.setMenu(menu);
 		}
 		resourceManager.save(resource);

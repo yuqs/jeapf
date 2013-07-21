@@ -36,4 +36,9 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
    	</tag>
+   	
+   	<tag>
+   		<name>menu</name>
+   		<tagclass>org.jeapf.framework.web.taglibs.MenuTag</tagclass>
+   	</tag>
 </taglib>

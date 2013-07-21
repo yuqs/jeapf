@@ -98,8 +98,7 @@ public class UserManager {
 	 */
 	@Transactional(readOnly = true)
 	public Page<User> searchUser(final Page<User> page, Long orgId) {
-		Org org = new Org();
-		org.setId(orgId);
+		Org org = new Org(orgId);
 		
 		String hql = "from User user where user.org=?";
 		return userDao.findPage(page, hql, org);
@@ -115,36 +114,36 @@ public class UserManager {
 	}
 	
 	/**
-	 * 根据用户名称查询该用户所拥有的权限列表
-	 * @param username
+	 * 根据用户ID查询该用户所拥有的权限列表
+	 * @param userId
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public List<String> getAuthoritiesName(String username) {
-		String hql = "select a.name from sec_user u " + 
+	public List<String> getAuthoritiesName(Long userId) {
+		String sql = "select a.name from sec_user u " + 
 					" left outer join sec_role_user ru on u.id=ru.user_id " + 
 					" left outer join sec_role r on ru.role_id=r.id " + 
 					" left outer join sec_role_authority ra on r.id = ra.role_id " + 
 					" left outer join sec_authority a on ra.authority_id = a.id " +                     
-					" where u.username=? ";
-		SQLQuery query = userDao.createSQLQuery(hql, username);
+					" where u.id=? ";
+		SQLQuery query = userDao.createSQLQuery(sql, userId);
 		return query.list();
 	}
 	
 	/**
-	 * 根据用户名称查询该用户所拥有的角色列表
-	 * @param username
+	 * 根据用户ID查询该用户所拥有的角色列表
+	 * @param userId
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public List<String> getRolesName(String username) {
-		String hql = "select r.name from sec_user u " + 
+	public List<String> getRolesName(Long userId) {
+		String sql = "select r.name from sec_user u " + 
 					" left outer join sec_role_user ru on u.id=ru.user_id " + 
 					" left outer join sec_role r on ru.role_id=r.id " + 
-					" where u.username=? ";
-		SQLQuery query = userDao.createSQLQuery(hql, username);
+					" where u.id=? ";
+		SQLQuery query = userDao.createSQLQuery(sql, userId);
 		return query.list();
 	}
 	

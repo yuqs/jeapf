@@ -54,7 +54,7 @@ public class MenuController {
 	 */
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public String create(Model model) {
-		model.addAttribute("menu", new Menu());
+		model.addAttribute("menu", new Menu(null));
 		return "security/menuEdit";
 	}
 
@@ -90,8 +90,7 @@ public class MenuController {
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	public String update(Menu menu, Long parentMenuId) {
 		if(parentMenuId != null && parentMenuId.longValue() > 0) {
-			Menu parent = new Menu();
-			parent.setId(parentMenuId);
+			Menu parent = new Menu(parentMenuId);
 			menu.setParentMenu(parent);
 		}
 		menuManager.save(menu);

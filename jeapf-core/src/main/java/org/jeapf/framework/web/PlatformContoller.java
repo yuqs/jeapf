@@ -38,6 +38,9 @@ public class PlatformContoller {
 	 */
 	@RequestMapping(value = "/left" ,method=RequestMethod.GET)
 	public String left(Model model) {
+//		Subject subject = SecurityUtils.getSubject();
+//		ShiroPrincipal principal = (ShiroPrincipal)subject.getPrincipal();
+//		System.out.println(principal.getUsername());
 		return "system/left";
 	}
 	

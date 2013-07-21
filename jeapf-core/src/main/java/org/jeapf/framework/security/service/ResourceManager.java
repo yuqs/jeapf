@@ -2,6 +2,7 @@ package org.jeapf.framework.security.service;
 
 import java.util.List;
 
+import org.hibernate.SQLQuery;
 import org.jeapf.framework.orm.Page;
 import org.jeapf.framework.orm.PropertyFilter;
 import org.jeapf.framework.security.dao.ResourceDao;
@@ -79,5 +80,29 @@ public class ResourceManager {
 	@Transactional(readOnly = true)
 	public List<Resource> getAll() {
 		return resourceDao.getAll();
+	}
+	
+	/**
+	 * 根据用户ID查询该用户具有权限访问的资源与不需要授权的资源
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public List<Resource> getAuthorizedResource(Long userId) {
+		String sql = " select re.id, re.name, re.source, re.menu from sec_user u " + 
+					" left outer join sec_role_user ru on u.id=ru.user_id " + 
+					" left outer join sec_role r on ru.role_id=r.id " + 
+					" left outer join sec_role_authority ra on r.id = ra.role_id " + 
+					" left outer join sec_authority a on ra.authority_id = a.id " + 
+					" left outer join sec_authority_resource ar on a.id = ar.authority_id " + 
+					" left outer join sec_resource re on ar.resource_id = re.id " + 
+					" where u.id=? and re.menu is not null " +
+					" union all " +
+					" select re.id, re.name, re.source, re.menu from sec_resource re " + 
+					" where re.menu is not null and not exists (select ar.authority_id from sec_authority_resource ar where ar.resource_id = re.id)";
+		SQLQuery query = resourceDao.createSQLQuery(sql, userId);
+		query.addEntity(Resource.class);
+		return query.list();
 	}
 }

@@ -34,6 +34,16 @@ public class Resource extends SecurityEntity
 	private List<Authority> authorities = new ArrayList<Authority>();
 	//资源所属菜单
 	private Menu menu;
+	
+	public Resource() {}
+	
+	/**
+	 * 构造函数，参数为主键ID
+	 * @param id
+	 */
+	public Resource(Long id) {
+		this.id = id;
+	}
 	@ManyToOne
 	@JoinColumn(name="menu", nullable=true)
     public Menu getMenu() {

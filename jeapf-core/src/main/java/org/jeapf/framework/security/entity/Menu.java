@@ -32,6 +32,28 @@ public class Menu extends SecurityEntity {
 	private Menu parentMenu;
 	//子菜单列表（多对多关联）
 	private List<Menu> subMenus = new ArrayList<Menu>();
+	
+	public Menu() {}
+	/**
+	 * 构造函数，参数为主键ID
+	 * @param id
+	 */
+	public Menu(Long id) {
+		this.id = id;
+	}
+	
+	/**
+	 * 构造函数，辅助hql查询
+	 * @param id
+	 * @param name
+	 * @param description
+	 */
+	public Menu(Long id, String name, String description) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+	
 	@Column(name = "name", nullable = false, length = 200)
 	public String getName() {
 		return name;

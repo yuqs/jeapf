@@ -38,6 +38,16 @@ public class Org extends SecurityEntity
     private List<User> users = new ArrayList<User>();
     //部门管辖的所有下级部门列表（一对多关联）
     private List<Org> orgs = new ArrayList<Org>();
+    
+    public Org() {}
+    
+    /**
+     * 构造函数，参数为主键ID
+     * @param id
+     */
+    public Org(Long id) {
+    	this.id = id;
+    }
 
     @Column(name = "name", nullable = false, length = 200)
 	public String getName() {

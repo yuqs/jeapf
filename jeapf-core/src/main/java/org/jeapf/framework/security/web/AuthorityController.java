@@ -58,7 +58,7 @@ public class AuthorityController {
 	 */
 	@RequestMapping(value = "create", method = RequestMethod.GET)
 	public String create(Model model) {
-		model.addAttribute("authority", new Authority());
+		model.addAttribute("authority", new Authority(null));
 		model.addAttribute("resources", resourceManager.getAll());
 		return "security/authorityEdit";
 	}
@@ -112,8 +112,7 @@ public class AuthorityController {
 	public String update(Authority authority, Long[] orderIndexs) {
 		if(orderIndexs != null) {
 			for(Long order : orderIndexs) {
-				Resource res = new Resource();
-				res.setId(order);
+				Resource res = new Resource(order);
 				authority.getResources().add(res);
 			}
 		}
