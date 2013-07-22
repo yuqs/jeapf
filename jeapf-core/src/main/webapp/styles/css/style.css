@@ -426,10 +426,11 @@ a.btnSelect {
 	display: block; 
 	background-position: 22px 15px; 
 	background-repeat: no-repeat; 
-	background-color: #f5f5f5; 
+	background-color: #ECF5F1; 
 	border-top: #dcdcdc 1px solid; 
 	border-right: #dcdcdc 1px solid; 
 	padding-left: 40px; 
+	font-weight: bold;
 	cursor: pointer; 
 	width: 135px;
 	background-image: url(../images/close.jpg);
@@ -442,7 +443,7 @@ a.btnSelect {
 	display: block; 
 	background-position: 30px 8px; 
 	background-repeat: no-repeat; 
-	background-color: #ECF5F1; 
+	background-color: #f5f5f5; 
 	border-top: #dcdcdc 1px solid; 
 	border-right: #dcdcdc 1px solid; 
 	padding-left: 50px;

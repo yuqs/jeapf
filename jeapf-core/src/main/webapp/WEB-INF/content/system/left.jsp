@@ -13,7 +13,7 @@
 <script src="${ctx}/styles/js/jquery-1.8.3.min.js" type="text/javascript"></script>
 </head>
 
-<body bgcolor="#f5f5f5" >
+<body bgcolor="#ECF5F1" >
 	<div class="browsers">
 			<div class="brsDetail">
 				<!-- <div class="node">

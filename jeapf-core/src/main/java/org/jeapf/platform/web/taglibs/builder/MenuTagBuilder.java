@@ -7,6 +7,7 @@ import java.util.TreeMap;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.jeapf.framework.security.entity.Menu;
@@ -132,8 +133,13 @@ public class MenuTagBuilder implements TagBuilder {
 //			buffer.append(menu.getName());
 //			buffer.append("</a></li>");
 			buffer.append("<a class='leafLink' href='");
-			buffer.append(servletContext.getContextPath());
-			buffer.append(menu.getDescription());
+			if(StringUtils.isEmpty(menu.getDescription())) {
+				buffer.append("javascript:void(0)");
+			} else {
+				buffer.append(servletContext.getContextPath());
+				buffer.append(menu.getDescription());
+			}
+
 			buffer.append("' target='mainFrame' >");
 			buffer.append(menu.getName());
 			buffer.append("</a>");
