@@ -21,6 +21,9 @@ public class MenuManager {
 	//注入菜单持久化对象
 	@Autowired
 	private MenuDao menuDao;
+	//注入资源管理对象
+	@Autowired
+	private ResourceManager resourceManager;
 	
 	/**
 	 * 保存菜单实体
@@ -35,6 +38,7 @@ public class MenuManager {
 	 * @param id
 	 */
 	public void delete(Long id) {
+		resourceManager.updateByMenuId(id);
 		menuDao.delete(id);
 	}
 	

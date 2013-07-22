@@ -52,6 +52,15 @@ public class ResourceManager {
 		resourceDao.delete(id);
 	}
 	
+	public void updateByMenuId(Long menuId) {
+		String hql = "from Resource as r where r.menu.id=?";
+		Resource resource = resourceDao.findUnique(hql, menuId);
+		if(resource != null) {
+			resource.setMenu(null);
+			resourceDao.save(resource);
+		}
+	}
+	
 	/**
 	 * 根据主键ID获取资源实体
 	 * @param id
