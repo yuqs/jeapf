@@ -8,7 +8,7 @@
 </head>
 <frameset rows="40,*" cols="*" frameborder="no" border="0" framespacing="0">
   <frame src="${ctx }/top" name="topFrame" scrolling="no" noresize="noresize" id="topFrame" title="topFrame" />
-  <frameset id="myFrame" cols="199,7,*" frameborder="no" border="0" framespacing="0">
+  <frameset id="myFrame" cols="178,7,*" frameborder="no" border="0" framespacing="0">
     <frame src="${ctx }/left" name="leftFrame" scrolling="no" noresize="noresize" id="leftFrame" title="leftFrame" />
 	<frame src="${ctx }/middle" name="midlleFrame" scrolling="no" noresize="noresize" id="midlleFrame" title="midlleFrame" />
 	<frame src="${ctx }/right" name="mainFrame" scrolling="auto" noresize="noresize" id="mainFrame" title="mainFrame" />

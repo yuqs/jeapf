@@ -370,3 +370,83 @@ a.btnSelect {
 	vertical-align: bottom;
 	margin-top: 220px;
 }
+
+/*Top style*/
+.navigation {
+	background-color: #368EE0;
+}
+.container-fluid,.container{
+	padding:0 20px;
+}
+
+.brand{
+	float:left;
+	font-size:20px;
+	margin-top:9px;
+	padding-right:33px;
+	padding-left:35px;
+	padding-bottom:2px;
+	background:url("../images/logo.png") no-repeat;
+	color: #fff;
+}
+
+.main-nav{
+	display:none
+}
+
+.user{
+	float:right;
+	margin-top:9px;
+	padding-right:33px;
+	padding-left:35px;
+	padding-bottom:2px;
+	font-size:12px;
+	font-weight:bold;
+	color: #fff;
+}
+
+/*Left style*/
+.brsDetail {
+	overflow: hidden; 
+	zoom:1; 
+	border: #dcdddc 1px solid;
+}
+
+.node {
+	float: left;  width: 176px; line-height: 39px;
+}
+
+.node a:hover {
+	background-color: #fff; 
+	border-right: #00b487 3px solid; 
+	width: 133px;
+}
+
+.nodeLink {
+	display: block; 
+	background-position: 22px 15px; 
+	background-repeat: no-repeat; 
+	background-color: #f5f5f5; 
+	border-top: #dcdcdc 1px solid; 
+	border-right: #dcdcdc 1px solid; 
+	padding-left: 40px; 
+	cursor: pointer; 
+	width: 135px;
+	background-image: url(../images/close.jpg);
+}
+
+.leaf {
+	float: left;  width: 176px; line-height: 30px;
+}
+.leafLink {
+	display: block; 
+	background-position: 30px 8px; 
+	background-repeat: no-repeat; 
+	background-color: #ECF5F1; 
+	border-top: #dcdcdc 1px solid; 
+	border-right: #dcdcdc 1px solid; 
+	padding-left: 50px;
+	cursor: pointer; 
+	width: 135px;
+	background-image: url(../images/arrow.png);
+}

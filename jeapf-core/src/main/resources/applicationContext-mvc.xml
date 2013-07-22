@@ -13,7 +13,7 @@
                 
     <mvc:annotation-driven/>
     <mvc:default-servlet-handler/>
-    <context:component-scan base-package="org.jeapf.framework.security.web,org.jeapf.framework.web" />
+    <context:component-scan base-package="org.jeapf.framework.security.web,org.jeapf.platform.web" />
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/content/" />

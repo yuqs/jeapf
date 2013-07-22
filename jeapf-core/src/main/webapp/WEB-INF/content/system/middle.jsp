@@ -10,12 +10,12 @@
 </head>
 <script language="JavaScript">
 function switchLayout(){
-	if(parent.myFrame.cols == "199,7,*") {
+	if(parent.myFrame.cols == "178,7,*") {
 		parent.myFrame.cols="0,7,*";
 		document.getElementById("arrow").src="${ctx}/styles/images/switch_right.gif";
 		document.getElementById("arrow").alt="打开左侧导航栏";
 	} else {
-		parent.myFrame.cols="199,7,*";
+		parent.myFrame.cols="178,7,*";
 		document.getElementById("arrow").src="${ctx}/styles/images/switch_left.gif";
 		document.getElementById("arrow").alt="隐藏左侧导航栏";
 	}

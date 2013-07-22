@@ -1,4 +1,4 @@
-package org.jeapf.framework.web.taglibs;
+package org.jeapf.platform.web.taglibs.builder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,54 +6,47 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import javax.servlet.ServletContext;
-import javax.servlet.jsp.JspWriter;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.jeapf.framework.security.entity.Menu;
 import org.jeapf.framework.security.service.MenuManager;
 import org.jeapf.framework.security.shiro.ShiroPrincipal;
+import org.jeapf.framework.web.TagBuilder;
+import org.jeapf.framework.web.TagDTO;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.tags.RequestContextAwareTag;
 
 /**
- * 系统首界面左栏导航菜单自定义标签
- * 该类继承RequestContextAwareTag，主要用于获取WebApplicationContext
+ * 自定义菜单标签处理类。
+ * 根据当前认证实体获取允许访问的所有菜单，并输出特定导航菜单的html
  * @author yuqs
  */
-public class MenuTag extends RequestContextAwareTag {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3041636263647268721L;
+@Component
+public class MenuTagBuilder implements TagBuilder {
 	//Spring的上下文
-	private WebApplicationContext context;
+	private WebApplicationContext springContext;
 	//Servlet的上下文
-	private ServletContext sc = null;
-
+	private ServletContext servletContext = null;
 	@Override
-	protected int doStartTagInternal() throws Exception {
-		//获取ServletContext
-		sc = pageContext.getServletContext();
-		//获取spring上下文
-		context = getRequestContext().getWebApplicationContext();
-		JspWriter writer = pageContext.getOut();
-		if (context == null) {
-			writer.write("获取菜单项失败");
-		} else {
-			StringBuffer buffer = new StringBuffer();
-			//获取所有可允许访问的菜单列表
-			List<Menu> menus = getAllowedAccessMenu();
-			//循环迭代菜单列表，构成ID、List结构的Map
-			Map<Long, List<Menu>> menuMaps = buildMenuTreeMap(menus);
-			//根据Map构造符合左栏菜单显示的html
-			buildMenuTreeFolder(buffer, menuMaps, Menu.ROOT_MENU);
-			writer.write(buffer.toString());
-		}
-		return 0;
+	public String build(TagDTO dto) {
+		this.servletContext = dto.getServletContext();
+		this.springContext = dto.getSpringContext();
+		StringBuffer buffer = new StringBuffer();
+		//获取所有可允许访问的菜单列表
+		List<Menu> menus = getAllowedAccessMenu();
+		//循环迭代菜单列表，构成ID、List结构的Map
+		Map<Long, List<Menu>> menuMaps = buildMenuTreeMap(menus);
+		//根据Map构造符合左栏菜单显示的html
+		buildMenuTreeFolder(buffer, menuMaps, Menu.ROOT_MENU);
+		return buffer.toString();
 	}
-
+	
+	/**
+	 * 循环迭代菜单列表，构成ID、List结构的Map
+	 * @param menus
+	 * @return
+	 */
 	private Map<Long, List<Menu>> buildMenuTreeMap(List<Menu> menus) {
 		Map<Long, List<Menu>> menuMap = new TreeMap<Long, List<Menu>>();
 		for (Menu menu : menus) {
@@ -82,7 +75,7 @@ public class MenuTag extends RequestContextAwareTag {
 	private List<Menu> getAllowedAccessMenu() {
 		Subject subject = SecurityUtils.getSubject();
 		ShiroPrincipal principal = (ShiroPrincipal) subject.getPrincipal();
-		MenuManager menuManager = context.getBean(MenuManager.class);
+		MenuManager menuManager = springContext.getBean(MenuManager.class);
 		return menuManager.getAllowedAccessMenu(principal.getId());
 	}
 	
@@ -101,17 +94,20 @@ public class MenuTag extends RequestContextAwareTag {
 		}
 		for(Menu menu : treeFolders)
 		{
-			buffer.append("<div class='subnav'>");
-			buffer.append("<div class='subnav-title'>");
-			buffer.append("<a href='#' class='toggle-subnav'><i class='icon-angle-down'></i><span>" + menu.getName() + "</span></a>");
-			buffer.append("</div>");
-			buffer.append("<ul class='subnav-menu'>");
+//			buffer.append("<div class='subnav'>");
+//			buffer.append("<div class='subnav-title'>");
+//			buffer.append("<a href='#' class='toggle-subnav'><i class='icon-angle-down'></i><span>" + menu.getName() + "</span></a>");
+//			buffer.append("</div>");
+//			buffer.append("<ul class='subnav-menu'>");
+			buffer.append("<div class='node'>");
+			buffer.append("<a id='node_" + menu.getId() + "' class='nodeLink' href='#' onclick=\"switchLeaf('" + menu.getId() + "')\">" + menu.getName() + "</a>");
+			buffer.append("<div class='leaf' id='leaf_" + menu.getId() + "' style='display: none;'>");
 			List<Menu> treeNodes = menuMap.get(menu.getId());
 			/**
 			 * 有子菜单时，将子菜单添加到当前节点上
 			 */
 			buildMenuTreeNode(buffer, treeNodes);
-			buffer.append("</ul></div>");
+			buffer.append("</div>");
 		}
 	}
 	
@@ -128,13 +124,19 @@ public class MenuTag extends RequestContextAwareTag {
 		}
 		for(Menu menu : treeNodes)
 		{
-			buffer.append("<li id='menu_" + menu.getId() + "'><a href='");
-			buffer.append(sc.getContextPath());
+//			buffer.append("<li id='menu_" + menu.getId() + "'><a href='");
+//			buffer.append(servletContext.getContextPath());
+//			buffer.append(menu.getDescription());
+//			buffer.append("' target='mainFrame' ");
+//			buffer.append(" onclick='refreshMenuFocus(this);'>");
+//			buffer.append(menu.getName());
+//			buffer.append("</a></li>");
+			buffer.append("<a class='leafLink' href='");
+			buffer.append(servletContext.getContextPath());
 			buffer.append(menu.getDescription());
-			buffer.append("' target='mainFrame' ");
-			buffer.append(" onclick='refreshMenuFocus(this);'>");
+			buffer.append("' target='mainFrame' >");
 			buffer.append(menu.getName());
-			buffer.append("</a></li>");
+			buffer.append("</a>");
 		}
 	}
 }

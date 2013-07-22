@@ -1,47 +1,60 @@
-package org.jeapf.framework.web.taglibs;
-
-import java.io.IOException;
-
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.JspWriter;
-import javax.servlet.jsp.tagext.BodyTagSupport;
+package org.jeapf.platform.web.taglibs.builder;
 
 import org.apache.commons.lang.StringUtils;
+import org.jeapf.framework.web.TagBuilder;
+import org.jeapf.framework.web.TagDTO;
+import org.springframework.stereotype.Component;
 
-public class PageTag extends BodyTagSupport 
-{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5636798157755500338L;
-	
+/**
+ * 自定义分页标签处理类
+ * @author yuqs
+ */
+@Component
+public class PageTagBuilder implements TagBuilder {
+	public static final String TOTAL_RECORDS = "totalRecords";
+	public static final String TOTAL_PAGES = "totalPages";
+	public static final String CURPAGE = "curPage";
+	public static final String EXPORT_URL = "exportUrl";
+	public static final String LOOKUP = "lookup";
+	//总记录数
 	private String totalRecords;
-	
+	//总页数
 	private String totalPages;
-	
+	//当前页数
 	private String curPage;
-	
+	//导出excel的url
 	private String exportUrl;
-	
+	//是否打开对话框的查询
 	private String lookup;
-
-	public int doEndTag() throws JspException {
-		JspWriter writer = pageContext.getOut();
-		try {
-			StringBuffer content = new StringBuffer();
-			content.append(buildPageMessage());
-			content.append(buildPageLink());
-			if(lookup == null || lookup.equals("")) {
-				content.append(buildPageButton());
-			}
-			
-			writer.write(wrapPageContent(content.toString()));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return super.doEndTag();
-	}
 	
+	/**
+	 * 获取DTO传递的参数，并依此构建分页的html信息
+	 */
+	@Override
+	public String build(TagDTO dto) {
+		this.totalRecords = dto.getProperty(TOTAL_RECORDS);
+		this.totalPages = dto.getProperty(TOTAL_PAGES);
+		this.curPage = dto.getProperty(CURPAGE);
+		this.exportUrl = dto.getProperty(EXPORT_URL);
+		this.lookup = dto.getProperty(LOOKUP);
+		
+		StringBuffer content = new StringBuffer();
+		//构建分页详细信息，总记录数、总页数、当前页数
+		content.append(buildPageMessage());
+		//构建分页栏的上一页、下一页、首页、末页
+		content.append(buildPageLink());
+		if(lookup == null || lookup.equals("")) {
+			//构建跳转指定页数的按钮
+			content.append(buildPageButton());
+		}
+		//对产生的html进行包装，实际上是添加到指定样式的table里
+		return wrapPageContent(content.toString());
+	}
+
+	/**
+	 * 构建分页详细信息，总记录数、总页数、当前页数
+	 * @return
+	 */
 	private String buildPageMessage() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<td><div align='left'>");
@@ -58,6 +71,10 @@ public class PageTag extends BodyTagSupport
 		return sb.toString();
 	}
 	
+	/**
+	 * 构建分页栏的上一页、下一页、首页、末页
+	 * @return
+	 */
 	private String buildPageLink() {
 		int prePage = 0, nextPage = 0, pageNo = 1, totalPage = 1;
 		try {
@@ -85,6 +102,10 @@ public class PageTag extends BodyTagSupport
 		return sb.toString();
 	}
 	
+	/**
+	 * 构建跳转指定页数的按钮
+	 * @return
+	 */
 	private String buildPageButton() {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<td><input type='hidden' name='lastpage' value='");
@@ -107,6 +128,11 @@ public class PageTag extends BodyTagSupport
 		return sb.toString();
 	}
 	
+	/**
+	 * 对产生的html进行包装，实际上是添加到指定样式的table里
+	 * @param content
+	 * @return
+	 */
 	private String wrapPageContent(String content) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<tr><td class='td_table_bottom' colspan='8'>");
@@ -114,45 +140,5 @@ public class PageTag extends BodyTagSupport
 		sb.append(content);
 		sb.append("</tr></table></td></tr>");
 		return sb.toString();
-	}
-
-	public String getTotalRecords() {
-		return totalRecords;
-	}
-
-	public void setTotalRecords(String totalRecords) {
-		this.totalRecords = totalRecords;
-	}
-
-	public String getTotalPages() {
-		return totalPages;
-	}
-
-	public void setTotalPages(String totalPages) {
-		this.totalPages = totalPages;
-	}
-
-	public String getCurPage() {
-		return curPage;
-	}
-
-	public void setCurPage(String curPage) {
-		this.curPage = curPage;
-	}
-
-	public String getExportUrl() {
-		return exportUrl;
-	}
-
-	public void setExportUrl(String exportUrl) {
-		this.exportUrl = exportUrl;
-	}
-
-	public String getLookup() {
-		return lookup;
-	}
-
-	public void setLookup(String lookup) {
-		this.lookup = lookup;
 	}
 }

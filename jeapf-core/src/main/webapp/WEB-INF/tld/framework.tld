@@ -9,7 +9,7 @@
 	<uri></uri>
 	<tag>
 		<name>page</name>
-		<tagclass>org.jeapf.framework.web.taglibs.PageTag</tagclass>
+		<tagclass>org.jeapf.platform.web.taglibs.PageTag</tagclass>
 		<attribute>
 			<name>totalRecords</name>
 			<required>true</required>
@@ -37,8 +37,53 @@
 		</attribute>
    	</tag>
    	
+	<tag>
+		<name>select</name>
+		<tagclass>org.jeapf.platform.web.taglibs.SelectTag</tagclass>
+		<attribute>
+			<name>type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>configName</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>readOnly</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>cssClass</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>displayType</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+   	</tag>
+   	
    	<tag>
    		<name>menu</name>
-   		<tagclass>org.jeapf.framework.web.taglibs.MenuTag</tagclass>
+   		<tagclass>org.jeapf.platform.web.taglibs.MenuTag</tagclass>
    	</tag>
 </taglib>
