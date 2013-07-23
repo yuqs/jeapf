@@ -8,11 +8,14 @@ import java.util.TreeMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jeapf.framework.config.AbstractConfiguration;
+import org.jeapf.framework.config.support.CacheConfiguration;
+import org.jeapf.framework.config.support.DatabaseConfiguration;
+import org.jeapf.framework.config.support.FileSystemConfiguration;
 import org.jeapf.framework.web.TagBuilder;
 import org.jeapf.framework.web.TagDTO;
-import org.jeapf.platform.service.ConfigManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.WebApplicationContext;
 
 /**
  * 选择控件构建器（支持select、radio、checkbox选择控件）
@@ -32,9 +35,9 @@ public class SelectTagBuilder implements TagBuilder {
 	public static final String CSSCLASS = "cssClass";
 	public static final String DISPLAYTYPE = "displayType";
 	public static final String VALUE = "value";
-	
-	//@Autowired
-	private ConfigManager configManager;
+	public static final String FROM = "from";
+	//Spring的上下文
+	private WebApplicationContext springContext;
 	//控件名称
 	private String name;
 	//控件类型
@@ -51,10 +54,12 @@ public class SelectTagBuilder implements TagBuilder {
 	private String cssClass;
 	//显示类型
 	private String displayType;
+	//配置数据来源，为空或0，默认从缓存获取，1为数据库中获取
+	private String from;
 	//值列表
-	private List<String> values = new ArrayList<String>();
+	private List<Long> values = new ArrayList<Long>();
 	//选择列表
-	private Map<String, String> items = new TreeMap<String, String>();
+	private Map<Long, String> items = new TreeMap<Long, String>();
 	
 	/**
 	 * 获取DTO传递的参数，并依此构建选择控件的html信息
@@ -65,6 +70,7 @@ public class SelectTagBuilder implements TagBuilder {
 			log.error("please confirm tag name or tag type is null.");
 			return "";
 		}
+		this.springContext = dto.getSpringContext();
 		dataProcess(dto);
 		StringBuffer buffer = new StringBuffer();
 		if(type.equalsIgnoreCase(TYPE_CHECKBOX)) {
@@ -89,7 +95,6 @@ public class SelectTagBuilder implements TagBuilder {
 	 * 根据dto对象，转换为builder的对象属性。并且对于configName，从注入的ConfigManager对象中获取配置数据
 	 * @param dto
 	 */
-	@SuppressWarnings("unchecked")
 	private void dataProcess(TagDTO dto) {
 		name = dto.getProperty(NAME);
 		type = dto.getProperty(TYPE);
@@ -99,13 +104,22 @@ public class SelectTagBuilder implements TagBuilder {
 		readonly = dto.getProperty(READONLY);
 		cssClass = dto.getProperty(CSSCLASS);
 		displayType = dto.getProperty(DISPLAYTYPE);
+		from = dto.getProperty(FROM);
 		if(value != null && !value.equals("")) {
 			String[] vs = value.split(";");
 			for(String v : vs) {
-				values.add(v);
+				values.add(Long.parseLong(v));
 			}
 		}
-		items = (Map<String, String>)configManager.getConfigByName(configName);
+		AbstractConfiguration configuration = null;
+		if(from == null || from.trim().length() == 0 || from.equals("2")) {
+			configuration = springContext.getBean(CacheConfiguration.class);
+		} else if(from.equals("1")) {
+			configuration = springContext.getBean(DatabaseConfiguration.class);
+		} else if(from.equals("3")) {
+			configuration = springContext.getBean(FileSystemConfiguration.class);
+		}
+		items = configuration.getConfigMapsByName(configName);
 	}
 	
 	/**
@@ -113,9 +127,9 @@ public class SelectTagBuilder implements TagBuilder {
 	 * @param buffer
 	 */
 	private void buildSelectLabel(StringBuffer buffer) {
-		Iterator<String> it = items.keySet().iterator();
+		Iterator<Long> it = items.keySet().iterator();
 		while(it.hasNext()) {
-			String key = it.next();
+			Long key = it.next();
 			String value = items.get(key);
 			if(values != null && values.contains(key)) {
 				buffer.append(value);
@@ -128,9 +142,9 @@ public class SelectTagBuilder implements TagBuilder {
 	 * @param buffer
 	 */
 	private void buildCheckOrRadio(StringBuffer buffer) {
-		Iterator<String> it = items.keySet().iterator();
+		Iterator<Long> it = items.keySet().iterator();
 		while(it.hasNext()) {
-			String key = it.next();
+			Long key = it.next();
 			String value = items.get(key);
 			String selected = "";
 			if (values != null && values.contains(key)) {
@@ -164,7 +178,7 @@ public class SelectTagBuilder implements TagBuilder {
 		buffer.append("<option value='' selected>------请选择------</option>");
 		
 		if(items != null && !items.isEmpty()) {
-			Iterator<String> it = items.keySet().iterator();
+			Iterator<Long> it = items.keySet().iterator();
 			String selected = "";
 			
 			while (it.hasNext()) {

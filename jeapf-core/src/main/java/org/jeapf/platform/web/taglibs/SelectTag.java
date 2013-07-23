@@ -62,7 +62,7 @@ public class SelectTag extends RequestContextAwareTag {
 			dto.setProperty(SelectTagBuilder.STYLE, style);
 			dto.setProperty(SelectTagBuilder.CSSCLASS, cssClass);
 			dto.setProperty(SelectTagBuilder.DISPLAYTYPE, displayType);
-			
+			dto.setSpringContext(springContext);
 			SelectTagBuilder builder = springContext.getBean(SelectTagBuilder.class);
 			writer.write(builder.build(dto));
 		} catch (IOException e) {

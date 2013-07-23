@@ -16,12 +16,6 @@
 <body bgcolor="#ECF5F1" >
 	<div class="browsers">
 			<div class="brsDetail">
-				<!-- <div class="node">
-					<a id="node_1" class="nodeLink" href="#" target="_self" onclick="switchLeaf('1')">税务登记</a>
-					<div class="leaf" id="leaf_1" style="display: none;">
-						<a class="leafLink" href="#" target="_self" onclick="">税务登记</a>
-					</div>
-				</div> -->
 				<frame:menu/>
 			</div>
 	</div>
