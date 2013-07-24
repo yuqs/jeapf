@@ -4,7 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en">
 	<head>
-		<title>部门管理</title>
+		<title>菜单管理</title>
 		<%@ include file="/common/meta.jsp"%>
 		<link rel="stylesheet" href="${ctx}/styles/css/style.css" type="text/css" media="all" />
 		<script src="${ctx}/styles/js/jquery-1.8.3.min.js" type="text/javascript"></script>
@@ -17,26 +17,18 @@
 				cellspacing="0">
 				<tr>
 					<td class="td_table_1">
-						<span>部门名称：</span>
+						<span>菜单名称：</span>
 					</td>
 					<td class="td_table_2" colspan="3">
-						${org.name }&nbsp;
+						${menu.name }&nbsp;
 					</td>
 				</tr>
 				<tr>
 					<td class="td_table_1">
-						<span>上级部门：</span>
+						<span>上级菜单：</span>
 					</td>
 					<td class="td_table_2" colspan="3">
-						${org.parentOrg.name }&nbsp;
-					</td>
-				</tr>
-				<tr>
-					<td class="td_table_1">
-						<span>部门描述：</span>
-					</td>
-					<td class="td_table_2" colspan="3">
-						${org.description }&nbsp;
+						${menu.parentMenu.name }&nbsp;
 					</td>
 				</tr>
 			</table>

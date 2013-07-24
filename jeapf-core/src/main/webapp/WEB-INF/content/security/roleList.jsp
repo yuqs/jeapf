@@ -29,7 +29,7 @@
 			cellspacing="0" style="margin-top: 0px">
 			<tr>
 				<td class="td_table_1">
-					<span>菜单名称：</span>
+					<span>角色名称：</span>
 				</td>
 				<td class="td_table_2">
 					<input type="text" class="input_240" name="filter_LIKES_name" value="${param['filter_LIKES_name']}"/>
