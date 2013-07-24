@@ -69,13 +69,16 @@
 						<table class="table_all" align="center" border="0" cellpadding="0" cellspacing="0" id="itemTable">
 							<c:forEach var="item" items="${dictionary.dictionaryItems}" varStatus="s">
 								<tr>
-									<td class="td_table_1">
+									<td class="td_list_2">
 										<input type="text" value="${item.orderby }" name='orderbys' size="2" readonly>
 									</td>
-									<td class="td_table_2">
-										<input type="text" value='${item.name }' class='input_520' name='itemNames' >
+									<td class="td_list_2">
+										<input type="text" value='${item.code }' name='codes' class='input_50' >
 									</td>
-									<td class="td_table_2">
+									<td class="td_list_2">
+										<input type="text" value='${item.name }' name='itemNames' class='input_520' >
+									</td>
+									<td class="td_list_2">
 										<a href='javascript:void(0)' onclick='delRow(${item.orderby - 1})' class='btnDel' title='删除'>删除</a>
 									</td>
 								</tr>
@@ -104,15 +107,19 @@
 				var row = table.insertRow(-1);
 				var cell = row.insertCell(-1);
 				cell.innerHTML = "<input type=\"text\" value=\"" + order + "\" name='orderbys' size=\"2\" readonly>";
-				cell.className = "td_table_1";
+				cell.className = "td_list_2";
+				
+				cell = row.insertCell(-1);
+				cell.innerHTML = "<input type=\"text\" value='' class='input_50' name='codes' >";
+				cell.className = "td_list_2";
 				
 				cell = row.insertCell(-1);
 				cell.innerHTML = "<input type=\"text\" value='' class='input_520' name='itemNames' >";
-				cell.className = "td_table_2";
+				cell.className = "td_list_2";
 				
 				cell = row.insertCell(-1);
 				cell.innerHTML = "<a href='javascript:void(0)' onclick='delRow(" + (order - 1) + ")' class='btnDel' title='删除'>删除</a>";
-				cell.className = "td_table_2";
+				cell.className = "td_list_2";
 				order = order + 1;
 			}
 			

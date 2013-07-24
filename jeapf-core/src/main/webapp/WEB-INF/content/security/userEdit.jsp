@@ -89,7 +89,15 @@
 						<span>性别：</span>
 					</td>
 					<td class="td_table_2">
-						<frame:select name="sex" type="radio" configName="sex" value="${user.sex }" cssClass="input_radio"/>
+						<frame:select name="sex" type="radio" configName="sex" value="${user.sex == null ? '1' : user.sex }" cssClass="input_radio"/>
+					</td>
+				</tr>
+				<tr>
+					<td class="td_table_1">
+						<span>是否可用：</span>
+					</td>
+					<td class="td_table_2" colspan="3">
+						<frame:select name="enabled" type="radio" configName="yesNo" value="${user.enabled == null ? '1' : user.enabled }" cssClass="input_radio"/>
 					</td>
 				</tr>
  				<tr>
@@ -98,7 +106,7 @@
 					</td>
 					<td class="td_table_2" colspan="3">
 						<input type="hidden" id="parentOrgId" name="parentOrgId" value="${user.org.id }">
-						<input type="text" id="parentOrgName" readonly="readonly" name="parentOrgName" class="input_240" value="${user.org.name }">
+						<input type="text" id="parentOrgName" readonly="readonly" name="parentOrgName" class="input_520" value="${user.org.name }">
 						<input type='button' class='button_70px' value='选择部门' id="selectOrgBtn" onclick="openOrg()"/>
 					</td>
 				</tr>

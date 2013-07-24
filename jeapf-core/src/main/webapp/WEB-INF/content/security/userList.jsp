@@ -60,7 +60,7 @@
 					姓名
 				</td>
 				<td align=center width=30% class="td_list_1" nowrap>
-					邮箱地址
+					是否可用
 				</td>
 				<td align=center width=20% class="td_list_1" nowrap>
 					部门
@@ -78,7 +78,8 @@
 						${user.fullname}&nbsp;
 					</td>
 					<td class="td_list_2" align=left nowrap>
-						${user.email}&nbsp;
+						<frame:select name="enabled" type="select" configName="yesNo" value="${user.enabled}" displayType="1"/>
+						&nbsp;
 					</td>
 					<td class="td_list_2" align=left nowrap>
 						${user.org.name}&nbsp;

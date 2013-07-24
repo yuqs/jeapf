@@ -32,6 +32,34 @@
 					</td>
 				</tr>
 			</table>
+			<table class="table_all" align="center" border="0" cellpadding="0"
+				cellspacing="0">
+				<tr>
+					<td align=center width=15% class="td_list_1" nowrap>
+						序号
+					</td>
+					<td align=center width=25% class="td_list_1" nowrap>
+						编号
+					</td>
+					<td align=center width=60% class="td_list_1" nowrap>
+						显示名称
+					</td>
+				</tr>
+
+				<c:forEach var="item" items="${dictionary.dictionaryItems}" varStatus="s">
+					<tr>
+						<td class="td_list_2" align=left nowrap>
+							${item.orderby }&nbsp;
+						</td>
+						<td class="td_list_2" align=left nowrap>
+							${item.code }&nbsp;
+						</td>					
+						<td class="td_list_2" align=left nowrap>
+							${item.name }&nbsp;
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
 			<table align="center" border="0" cellpadding="0"
 				cellspacing="0">
 				<tr align="left">

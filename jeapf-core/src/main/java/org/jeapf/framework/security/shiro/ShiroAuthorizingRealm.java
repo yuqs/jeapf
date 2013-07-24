@@ -89,10 +89,19 @@ public class ShiroAuthorizingRealm extends AuthorizingRealm {
 			throw new AccountException("用户名不能为空");
 		}
 
-		User user = userManager.findUserByName(username);
+		User user = null;
+		try {
+			user = userManager.findUserByName(username);
+		} catch(Exception ex) {
+			log.warn("获取用户失败\n" + ex.getMessage());
+		}
 		if (user == null) {
 		    log.warn("用户不存在");
 		    throw new UnknownAccountException("用户不存在");
+		}
+		if(user.getEnabled() == null || "2".equals(user.getEnabled())) {
+		    log.warn("用户被禁止使用");
+		    throw new UnknownAccountException("用户被禁止使用");
 		}
 		log.info("用户【" + username + "】登录成功");
 		byte[] salt = EncodeUtils.hexDecode(user.getSalt());

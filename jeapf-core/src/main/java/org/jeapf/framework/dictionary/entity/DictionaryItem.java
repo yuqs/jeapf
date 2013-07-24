@@ -19,7 +19,9 @@ public class DictionaryItem extends DictionaryEntity {
 	 */
 	private static final long serialVersionUID = -1382491728106297904L;
 	//字典选项名称
-	private  String name;
+	private String name;
+	//编码（手动设置）
+	private String code;
 	//描述
 	private String description;
 	//字段选项排序字段
@@ -54,5 +56,12 @@ public class DictionaryItem extends DictionaryEntity {
 	}
 	public void setDictionary(Dictionary dictionary) {
 		this.dictionary = dictionary;
+	}
+	@Column(name = "code", length = 50)
+	public String getCode() {
+		return code;
+	}
+	public void setCode(String code) {
+		this.code = code;
 	}
 }

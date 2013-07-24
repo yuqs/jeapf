@@ -15,7 +15,7 @@ public class FileSystemDictionary extends AbstractDictionary {
 	 * 
 	 */
 	@Override
-	public Map<Long, String> getByName(String name) {
+	public Map<String, String> getByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -82,17 +82,17 @@ public class DictionaryManager {
 	 */
 	@SuppressWarnings("unchecked")
 	@Transactional(readOnly = true)
-	public Map<Long, String> getItemsByName(String name) {
+	public Map<String, String> getItemsByName(String name) {
 		StringBuffer sqlBuffer = new StringBuffer();
-		sqlBuffer.append("select ci.id,ci.name,ci.orderby,ci.dictionary,ci.description from conf_dictitem ci ");
+		sqlBuffer.append("select ci.id,ci.name,ci.code,ci.orderby,ci.dictionary,ci.description from conf_dictitem ci ");
 		sqlBuffer.append(" left outer join conf_dictionary cd on cd.id = ci.dictionary ");
 		sqlBuffer.append(" where cd.name = ?");
 		SQLQuery query = dictionaryDao.createSQLQuery(sqlBuffer.toString(), name);
 		query.addEntity(DictionaryItem.class);
 		List<DictionaryItem> items = query.list();
-		Map<Long, String> dicts = new TreeMap<Long, String>();
+		Map<String, String> dicts = new TreeMap<String, String>();
 		for(DictionaryItem item : items) {
-			dicts.put(item.getId(), item.getName());
+			dicts.put(item.getCode(), item.getName());
 		}
 		return dicts;
 	}

@@ -20,11 +20,11 @@ public class CacheDictionary extends AbstractDictionary {
 	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public Map<Long, String> getByName(String name) {
+	public Map<String, String> getByName(String name) {
 		Object value = CacheManager.get(name);
 		if(value != null && !(value instanceof Map)) {
 			throw new DictionaryException("Type conversion failure");
 		}
-		return (Map<Long, String>)value;
+		return (Map<String, String>)value;
 	}
 }

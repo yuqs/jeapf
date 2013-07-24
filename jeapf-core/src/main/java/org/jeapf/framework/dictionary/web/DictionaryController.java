@@ -90,13 +90,14 @@ public class DictionaryController {
 	 * @return
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
-	public String update(Dictionary dictionary, String[] itemNames, Integer[] orderbys) {
+	public String update(Dictionary dictionary, String[] itemNames, Integer[] orderbys, String[] codes) {
 		List<DictionaryItem> items = new ArrayList<DictionaryItem>();
 		for(int i = 0; i < itemNames.length; i++) {
 			DictionaryItem ci = new DictionaryItem();
 			ci.setDictionary(dictionary);
 			ci.setName(itemNames[i]);
 			ci.setOrderby(orderbys[i]);
+			ci.setCode(codes[i]);
 			items.add(ci);
 		}
 		dictionaryManager.save(dictionary, items);

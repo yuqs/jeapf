@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jeapf.framework.dictionary.AbstractDictionary;
@@ -59,7 +60,7 @@ public class SelectTagBuilder implements TagBuilder {
 	//值列表
 	private List<String> values = new ArrayList<String>();
 	//选择列表
-	private Map<Long, String> items = new TreeMap<Long, String>();
+	private Map<String, String> items = new TreeMap<String, String>();
 	
 	/**
 	 * 获取DTO传递的参数，并依此构建选择控件的html信息
@@ -78,7 +79,7 @@ public class SelectTagBuilder implements TagBuilder {
 		} else if(type.equalsIgnoreCase(TYPE_RADIO)) {
 			buildCheckOrRadio(buffer);
 		} else if(type.equalsIgnoreCase(TYPE_SELECT)) {
-			if(displayType != null && !displayType.equalsIgnoreCase("")) {
+			if(StringUtils.isNotEmpty(displayType)) {
 				if(displayType.equalsIgnoreCase("1")) {
 					buildSelectLabel(buffer);
 				} else if(displayType.equalsIgnoreCase("0")) {
@@ -96,6 +97,8 @@ public class SelectTagBuilder implements TagBuilder {
 	 * @param dto
 	 */
 	private void dataProcess(TagDTO dto) {
+		values.clear();
+		items.clear();
 		name = dto.getProperty(NAME);
 		type = dto.getProperty(TYPE);
 		configName = dto.getProperty(CONFIGNAME);
@@ -105,10 +108,14 @@ public class SelectTagBuilder implements TagBuilder {
 		cssClass = dto.getProperty(CSSCLASS);
 		displayType = dto.getProperty(DISPLAYTYPE);
 		from = dto.getProperty(FROM);
-		if(value != null && !value.equals("")) {
-			String[] vs = value.split(";");
-			for(String v : vs) {
-				values.add(v);
+		if(StringUtils.isNotEmpty(value)) {
+			if(value.indexOf(";") > -1) {
+				String[] vs = value.split(";");
+				for(String v : vs) {
+					values.add(v);
+				}
+			} else {
+				values.add(value);
 			}
 		}
 		AbstractDictionary dictionary = null;
@@ -129,12 +136,13 @@ public class SelectTagBuilder implements TagBuilder {
 	 * @param buffer
 	 */
 	private void buildSelectLabel(StringBuffer buffer) {
-		Iterator<Long> it = items.keySet().iterator();
+		Iterator<String> it = items.keySet().iterator();
 		while(it.hasNext()) {
-			Long key = it.next();
+			String key = it.next();
 			String value = items.get(key);
-			if(values != null && values.contains(String.valueOf(key))) {
+			if(values.contains(key)) {
 				buffer.append(value);
+				break;
 			}
 		}
 	}
@@ -144,12 +152,12 @@ public class SelectTagBuilder implements TagBuilder {
 	 * @param buffer
 	 */
 	private void buildCheckOrRadio(StringBuffer buffer) {
-		Iterator<Long> it = items.keySet().iterator();
+		Iterator<String> it = items.keySet().iterator();
 		while(it.hasNext()) {
-			Long key = it.next();
+			String key = it.next();
 			String value = items.get(key);
 			String selected = "";
-			if (values != null && values.contains(String.valueOf(key))) {
+			if (values != null && values.contains(key)) {
 				selected = "checked";
 			}
 			buffer.append("<label>");
@@ -180,15 +188,15 @@ public class SelectTagBuilder implements TagBuilder {
 		buffer.append("<option value='' selected>------请选择------</option>");
 		
 		if(items != null && !items.isEmpty()) {
-			Iterator<Long> it = items.keySet().iterator();
+			Iterator<String> it = items.keySet().iterator();
 			String selected = "";
 			
 			while (it.hasNext()) {
 				selected = "";
-				Long key =  it.next();
+				String key =  it.next();
 				String value = (String)items.get(key);
 				
-				if (values != null && values.contains(String.valueOf(key))) {
+				if (values != null && values.contains(key)) {
 					selected = "selected";
 				}
 				

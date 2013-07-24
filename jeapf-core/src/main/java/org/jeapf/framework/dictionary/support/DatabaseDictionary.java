@@ -16,7 +16,7 @@ public class DatabaseDictionary extends AbstractDictionary {
 	@Autowired
 	private DictionaryManager dictionaryManager;
 	@Override
-	public Map<Long, String> getByName(String name) {
+	public Map<String, String> getByName(String name) {
 		return dictionaryManager.getItemsByName(name);
 	}
 

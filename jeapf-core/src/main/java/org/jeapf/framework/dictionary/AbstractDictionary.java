@@ -9,15 +9,15 @@ import java.util.Map;
 public abstract class AbstractDictionary implements IDictionary {
 
 	@Override
-	public abstract Map<Long, String> getByName(String name);
+	public abstract Map<String, String> getByName(String name);
 
 	/**
 	 * 根据key获取字典缓存value(约定配置value为Map)
 	 * @param key
 	 * @return
 	 */
-	public String getValue(String name, Long key) {
-		Map<Long, String> config = getByName(name);
+	public String getValue(String name, String key) {
+		Map<String, String> config = getByName(name);
 		return config.get(key);
 	}
 }
