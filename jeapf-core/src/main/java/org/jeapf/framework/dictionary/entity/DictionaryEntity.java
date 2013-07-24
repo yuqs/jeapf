@@ -1,4 +1,4 @@
-package org.jeapf.framework.config.entity;
+package org.jeapf.framework.dictionary.entity;
 
 import java.io.Serializable;
 
@@ -13,7 +13,7 @@ import javax.persistence.SequenceGenerator;
  * @author yuqs
  */
 @MappedSuperclass
-public abstract class ConfigEntity implements Serializable{
+public abstract class DictionaryEntity implements Serializable{
 
 	/**
 	 * 

@@ -1,5 +1,6 @@
-package org.jeapf.framework.config.entity;
+package org.jeapf.framework.dictionary.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,23 +10,23 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * 配置实体类
+ * 配置字典实体类
  * @author yuqs
  */
 @Entity
-@Table(name = "CONF_CONFIG")
-public class Config extends ConfigEntity {
+@Table(name = "CONF_DICTIONARY")
+public class Dictionary extends DictionaryEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -7610108657592274423L;
-	//枚举名称
+	//名称
 	private String name;
 	//描述
 	private String description;
-	//
-	private List<ConfigItem> configItems;
+	//字典选项
+	private List<DictionaryItem> dictionaryItems = new ArrayList<DictionaryItem>();
 	@Column(name = "name", unique = true, nullable = false, length = 200)
 	public String getName() {
 		return name;
@@ -40,11 +41,11 @@ public class Config extends ConfigEntity {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	@OneToMany(mappedBy = "config",cascade = CascadeType.ALL)
-	public List<ConfigItem> getConfigItems() {
-		return configItems;
+	@OneToMany(mappedBy = "dictionary",cascade = CascadeType.ALL)
+	public List<DictionaryItem> getDictionaryItems() {
+		return dictionaryItems;
 	}
-	public void setConfigItems(List<ConfigItem> configItems) {
-		this.configItems = configItems;
+	public void setDictionaryItems(List<DictionaryItem> dictionaryItems) {
+		this.dictionaryItems = dictionaryItems;
 	}
 }

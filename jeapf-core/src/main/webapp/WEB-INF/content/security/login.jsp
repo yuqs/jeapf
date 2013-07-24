@@ -43,7 +43,7 @@
 					<div class="control-group">
 						<label class="control-label" for="username">账号：</label>
 						<div class="controls">
-							<input type="text" class="" id="username" name="username" value="${username }"/>
+							<input type="text" class="" id="username" name="username" value="${username }" autocomplete="off"/>
 						</div>
 					</div>
 					<div class="control-group">

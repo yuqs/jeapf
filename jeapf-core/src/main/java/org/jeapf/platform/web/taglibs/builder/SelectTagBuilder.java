@@ -8,10 +8,10 @@ import java.util.TreeMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jeapf.framework.config.AbstractConfiguration;
-import org.jeapf.framework.config.support.CacheConfiguration;
-import org.jeapf.framework.config.support.DatabaseConfiguration;
-import org.jeapf.framework.config.support.FileSystemConfiguration;
+import org.jeapf.framework.dictionary.AbstractDictionary;
+import org.jeapf.framework.dictionary.support.CacheDictionary;
+import org.jeapf.framework.dictionary.support.DatabaseDictionary;
+import org.jeapf.framework.dictionary.support.FileSystemDictionary;
 import org.jeapf.framework.web.TagBuilder;
 import org.jeapf.framework.web.TagDTO;
 import org.springframework.stereotype.Component;
@@ -111,17 +111,17 @@ public class SelectTagBuilder implements TagBuilder {
 				values.add(v);
 			}
 		}
-		AbstractConfiguration configuration = null;
+		AbstractDictionary dictionary = null;
 		if(from == null || from.trim().length() == 0 || from.equals("1")) {
-			configuration = springContext.getBean(CacheConfiguration.class);
+			dictionary = springContext.getBean(CacheDictionary.class);
 		} else if(from.equals("2")) {
-			configuration = springContext.getBean(DatabaseConfiguration.class);
+			dictionary = springContext.getBean(DatabaseDictionary.class);
 		} else if(from.equals("3")) {
-			configuration = springContext.getBean(FileSystemConfiguration.class);
+			dictionary = springContext.getBean(FileSystemDictionary.class);
 		} else {
-			configuration = (AbstractConfiguration)springContext.getBean(from);
+			dictionary = (AbstractDictionary)springContext.getBean(from);
 		}
-		items = configuration.getConfigMapsByName(configName);
+		items = dictionary.getByName(configName);
 	}
 	
 	/**

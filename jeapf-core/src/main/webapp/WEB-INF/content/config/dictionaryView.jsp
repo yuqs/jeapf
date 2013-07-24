@@ -11,25 +11,16 @@
 	</head>
 
 	<body>
-		<form id="inputForm" action="${ctx }/config/configuration/update" method="post">
-			<input type="hidden" name="id" id="id" value="${id }"/>
-		<table width="100%" border="0" align="center" cellpadding="0"
-				class="table_all_border" cellspacing="0" style="margin-bottom: 0px;border-bottom: 0px">
-			<tr>
-				<td class="td_table_top" align="center">
-					配置管理
-				</td>
-			</tr>
-		</table>
-		<table class="table_all" align="center" border="0" cellpadding="0"
-			cellspacing="0" style="margin-top: 0px">
+		<form id="inputForm" action="" method="post">
+			<input type="hidden" name="id" id="id" value="${dictionary.id }"/>
+			<table class="table_all" align="center" border="0" cellpadding="0"
+				cellspacing="0">
 				<tr>
 					<td class="td_table_1">
 						<span>配置名称：</span>
 					</td>
 					<td class="td_table_2" colspan="3">
-						<input type="text" class="input_240" id="name" name="name"
-							value="${configuration.name }" />
+						${dictionary.name }&nbsp;
 					</td>
 				</tr>
 				<tr>
@@ -37,8 +28,7 @@
 						<span>配置描述：</span>
 					</td>
 					<td class="td_table_2" colspan="3">
-						<input type="text" class="input_240" id="description" name="description"
-							value="${configuration.description }" />
+						${dictionary.description }&nbsp;
 					</td>
 				</tr>
 			</table>
@@ -46,8 +36,6 @@
 				cellspacing="0">
 				<tr align="left">
 					<td colspan="1">
-						<input type="submit" class="button_70px" name="submit" value="提交">
-						&nbsp;&nbsp;
 						<input type="button" class="button_70px" name="reback" value="返回"
 							onclick="history.back()">
 					</td>

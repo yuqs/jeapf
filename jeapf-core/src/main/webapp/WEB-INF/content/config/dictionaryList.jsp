@@ -12,7 +12,7 @@
 	</head>
 
 	<body style="PADDING-TOP: 5px">
-	<form id="mainForm" action="${ctx}/config/configuration?lookup=${lookup }" method="get">
+	<form id="mainForm" action="${ctx}/config/dictionary?lookup=${lookup }" method="get">
 		<input type="hidden" name="lookup" value="${lookup}" />
 		<input type="hidden" name="pageNo" id="pageNo" value="${page.pageNo}"/>
 		<input type="hidden" name="orderBy" id="orderBy" value="${page.orderBy}"/>
@@ -42,7 +42,7 @@
 				<td align="left">
 				<c:choose>
 					<c:when test="${empty lookup}">
-					<input type='button' onclick="addNew('${ctx}/config/configuration/create')" class='button_70px' value='新建'/>
+					<input type='button' onclick="addNew('${ctx}/config/dictionary/create')" class='button_70px' value='新建'/>
 					</c:when>
 					<c:otherwise>
 					<input type='button' onclick="javascript:bringback('','')" class='button_70px' value='重置'/>
@@ -65,23 +65,23 @@
 					操作
 				</td>				
 			</tr>
-			<c:forEach items="${page.result}" var="configuration">
+			<c:forEach items="${page.result}" var="dictionary">
 				<tr>
 					<td class="td_list_2" align=left nowrap>
-						${configuration.name}&nbsp;
+						${dictionary.name}&nbsp;
 					</td>
 					<td class="td_list_2" align=left nowrap>
-						${configuration.description}&nbsp;
+						${dictionary.description}&nbsp;
 					</td>
 					<td class="td_list_2" align=left nowrap>
 				    <c:choose>
 				    <c:when test="${empty lookup}">
-						<a href="${ctx}/config/configuration/delete/${configuration.id }" class="btnDel" title="删除" onclick="return confirmDel();">删除</a>
-						<a href="${ctx}/config/configuration/update/${configuration.id }" class="btnEdit" title="编辑">编辑</a>
-						<a href="${ctx}/config/configuration/view/${configuration.id }" class="btnView" title="查看">查看</a>
+						<a href="${ctx}/config/dictionary/delete/${dictionary.id }" class="btnDel" title="删除" onclick="return confirmDel();">删除</a>
+						<a href="${ctx}/config/dictionary/update/${dictionary.id }" class="btnEdit" title="编辑">编辑</a>
+						<a href="${ctx}/config/dictionary/view/${dictionary.id }" class="btnView" title="查看">查看</a>
 					</c:when>
 					<c:otherwise>
-						<a href="javascript:void(0)" class="btnSelect" title="选择" onclick="bringback('${configuration.id}','${configuration.name }')">选择</a>
+						<a href="javascript:void(0)" class="btnSelect" title="选择" onclick="bringback('${dictionary.id}','${dictionary.name }')">选择</a>
 					</c:otherwise>
 					</c:choose>
 					</td>

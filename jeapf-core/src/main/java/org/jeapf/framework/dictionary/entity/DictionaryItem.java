@@ -1,4 +1,4 @@
-package org.jeapf.framework.config.entity;
+package org.jeapf.framework.dictionary.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,25 +7,25 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * 配置元素实体类
+ * 配置字典选项实体类
  * @author yuqs
  */
 @Entity
-@Table(name = "CONF_ITEM")
-public class ConfigItem extends ConfigEntity {
+@Table(name = "CONF_DICTITEM")
+public class DictionaryItem extends DictionaryEntity {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -1382491728106297904L;
-	//枚举值名称
+	//字典选项名称
 	private  String name;
 	//描述
 	private String description;
-	//枚举值编号
+	//字段选项排序字段
 	private Integer orderby;
-	//枚举项
-	private Config config;
+	//配置字典实体（关联）
+	private Dictionary dictionary;
 	@Column(name = "name", unique = true, nullable = false, length = 200)
 	public String getName() {
 		return name;
@@ -48,11 +48,11 @@ public class ConfigItem extends ConfigEntity {
 		this.orderby = orderby;
 	}
 	@ManyToOne
-	@JoinColumn(name="config")
-	public Config getConfig() {
-		return config;
+	@JoinColumn(name="dictionary")
+	public Dictionary getDictionary() {
+		return dictionary;
 	}
-	public void setConfig(Config config) {
-		this.config = config;
+	public void setDictionary(Dictionary dictionary) {
+		this.dictionary = dictionary;
 	}
 }

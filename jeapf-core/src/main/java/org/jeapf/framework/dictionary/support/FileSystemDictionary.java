@@ -1,6 +1,8 @@
-package org.jeapf.framework.config.support;
+package org.jeapf.framework.dictionary.support;
 
-import org.jeapf.framework.config.AbstractConfiguration;
+import java.util.Map;
+
+import org.jeapf.framework.dictionary.AbstractDictionary;
 
 /**
  * 文件配置管理支持类，从文件系统中获取配置数据，提供给需要配置数据的对象
@@ -8,12 +10,12 @@ import org.jeapf.framework.config.AbstractConfiguration;
  * 该类后期可能被DatabaseSupport替代。可以简单配置的db管理。
  * @author yuqs
  */
-public class FileSystemConfiguration extends AbstractConfiguration {
+public class FileSystemDictionary extends AbstractDictionary {
 	/**
 	 * 
 	 */
 	@Override
-	public Object getConfigByName(String name) {
+	public Map<Long, String> getByName(String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}

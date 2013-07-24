@@ -57,7 +57,7 @@
 		<property name="packagesToScan">
 			<list>
 			    <value>org.jeapf.framework.security.entity</value>
-			    <value>org.jeapf.framework.config.entity</value>
+			    <value>org.jeapf.framework.dictionary.entity</value>
 			</list>
 		</property>
 	</bean>
