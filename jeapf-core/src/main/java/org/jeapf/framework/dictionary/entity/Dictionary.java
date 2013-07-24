@@ -23,6 +23,8 @@ public class Dictionary extends DictionaryEntity {
 	private static final long serialVersionUID = -7610108657592274423L;
 	//名称
 	private String name;
+	//中文名称
+	private String cnName;
 	//描述
 	private String description;
 	//字典选项
@@ -47,5 +49,12 @@ public class Dictionary extends DictionaryEntity {
 	}
 	public void setDictionaryItems(List<DictionaryItem> dictionaryItems) {
 		this.dictionaryItems = dictionaryItems;
+	}
+	@Column(name = "cnName", nullable = false, length = 200)
+	public String getCnName() {
+		return cnName;
+	}
+	public void setCnName(String cnName) {
+		this.cnName = cnName;
 	}
 }

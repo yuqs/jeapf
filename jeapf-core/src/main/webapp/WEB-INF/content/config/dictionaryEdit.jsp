@@ -33,6 +33,15 @@
 				</tr>
 				<tr>
 					<td class="td_table_1">
+						<span>显示名称：</span>
+					</td>
+					<td class="td_table_2" colspan="3">
+						<input type="text" class="input_240" id="cnName" name="cnName"
+							value="${dictionary.cnName }" />
+					</td>
+				</tr>
+				<tr>
+					<td class="td_table_1">
 						<span>配置描述：</span>
 					</td>
 					<td class="td_table_2" colspan="3">

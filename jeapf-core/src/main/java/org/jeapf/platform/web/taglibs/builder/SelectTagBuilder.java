@@ -54,7 +54,7 @@ public class SelectTagBuilder implements TagBuilder {
 	private String cssClass;
 	//显示类型
 	private String displayType;
-	//配置数据来源，为空或1，默认从缓存获取，2为数据库中获取，3为文件配置中获取
+	//配置数据来源，为空或1，默认从数据库获取，2为缓存中获取，3为文件配置中获取
 	private String from;
 	//值列表
 	private List<String> values = new ArrayList<String>();
@@ -66,12 +66,12 @@ public class SelectTagBuilder implements TagBuilder {
 	 */
 	@Override
 	public String build(TagDTO dto) {
+		this.springContext = dto.getSpringContext();
+		dataProcess(dto);
 		if(name == null || type == null) {
 			log.error("please confirm tag name or tag type is null.");
 			return "";
 		}
-		this.springContext = dto.getSpringContext();
-		dataProcess(dto);
 		StringBuffer buffer = new StringBuffer();
 		if(type.equalsIgnoreCase(TYPE_CHECKBOX)) {
 			buildCheckOrRadio(buffer);
@@ -113,9 +113,9 @@ public class SelectTagBuilder implements TagBuilder {
 		}
 		AbstractDictionary dictionary = null;
 		if(from == null || from.trim().length() == 0 || from.equals("1")) {
-			dictionary = springContext.getBean(CacheDictionary.class);
-		} else if(from.equals("2")) {
 			dictionary = springContext.getBean(DatabaseDictionary.class);
+		} else if(from.equals("2")) {
+			dictionary = springContext.getBean(CacheDictionary.class);
 		} else if(from.equals("3")) {
 			dictionary = springContext.getBean(FileSystemDictionary.class);
 		} else {

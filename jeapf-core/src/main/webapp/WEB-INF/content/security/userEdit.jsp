@@ -81,9 +81,15 @@
 					<td class="td_table_1">
 						<span>邮箱：</span>
 					</td>
-					<td class="td_table_2" colspan="3">
+					<td class="td_table_2">
 						<input type="text" class="input_240" id="email" name="email"
 							value="${user.email }" />
+					</td>
+					<td class="td_table_1">
+						<span>性别：</span>
+					</td>
+					<td class="td_table_2">
+						<frame:select name="sex" type="radio" configName="sex" value="${user.sex }" cssClass="input_radio"/>
 					</td>
 				</tr>
  				<tr>

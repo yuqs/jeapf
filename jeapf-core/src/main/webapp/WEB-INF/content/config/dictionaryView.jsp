@@ -25,10 +25,10 @@
 				</tr>
 				<tr>
 					<td class="td_table_1">
-						<span>配置描述：</span>
+						<span>显示名称：</span>
 					</td>
 					<td class="td_table_2" colspan="3">
-						${dictionary.description }&nbsp;
+						${dictionary.cnName }&nbsp;
 					</td>
 				</tr>
 			</table>

@@ -45,7 +45,7 @@ public class User extends SecurityEntity
 	//年龄
 	private Integer age;
 	//性别
-	private String sex;
+	private Long sex;
 	//是否可用
 	private String enabled;
 	//所属部门
@@ -110,11 +110,11 @@ public class User extends SecurityEntity
 	}
 
 	@Column(name = "sex")
-	public String getSex() {
+	public Long getSex() {
 		return sex;
 	}
 
-	public void setSex(String sex) {
+	public void setSex(Long sex) {
 		this.sex = sex;
 	}
 

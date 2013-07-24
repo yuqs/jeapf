@@ -59,7 +59,7 @@
 					配置名称
 				</td>
 				<td align=center width=45% class="td_list_1" nowrap>
-					配置描述
+					显示名称
 				</td>
 				<td align=center width=10% class="td_list_1" nowrap>
 					操作
@@ -71,7 +71,7 @@
 						${dictionary.name}&nbsp;
 					</td>
 					<td class="td_list_2" align=left nowrap>
-						${dictionary.description}&nbsp;
+						${dictionary.cnName}&nbsp;
 					</td>
 					<td class="td_list_2" align=left nowrap>
 				    <c:choose>

@@ -175,7 +175,7 @@ a:hover {
 .input_select {
 	border:1px solid #C8E3F4;
 	line-height:22px;
-	margin:-1px,-5px,-1px,-1px;
+	margin:-1px,-5px,-1px,5px;
 	padding:4px 3px;
 	font-size:12px;
 	width:235px;

@@ -1,7 +1,10 @@
 package org.jeapf.framework.dictionary.service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
+import org.hibernate.SQLQuery;
 import org.jeapf.framework.dictionary.dao.DictionaryDao;
 import org.jeapf.framework.dictionary.entity.Dictionary;
 import org.jeapf.framework.dictionary.entity.DictionaryItem;
@@ -70,5 +73,27 @@ public class DictionaryManager {
 	@Transactional(readOnly = true)
 	public Page<Dictionary> findPage(final Page<Dictionary> page, final List<PropertyFilter> filters) {
 		return dictionaryDao.findPage(page, filters);
+	}
+	
+	/**
+	 * 根据字典名称，获取所有字典项，并以map类型返回
+	 * @param name
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly = true)
+	public Map<Long, String> getItemsByName(String name) {
+		StringBuffer sqlBuffer = new StringBuffer();
+		sqlBuffer.append("select ci.id,ci.name,ci.orderby,ci.dictionary,ci.description from conf_dictitem ci ");
+		sqlBuffer.append(" left outer join conf_dictionary cd on cd.id = ci.dictionary ");
+		sqlBuffer.append(" where cd.name = ?");
+		SQLQuery query = dictionaryDao.createSQLQuery(sqlBuffer.toString(), name);
+		query.addEntity(DictionaryItem.class);
+		List<DictionaryItem> items = query.list();
+		Map<Long, String> dicts = new TreeMap<Long, String>();
+		for(DictionaryItem item : items) {
+			dicts.put(item.getId(), item.getName());
+		}
+		return dicts;
 	}
 }
