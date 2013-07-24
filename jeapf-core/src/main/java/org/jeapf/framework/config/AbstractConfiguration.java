@@ -2,8 +2,10 @@ package org.jeapf.framework.config;
 
 import java.util.Map;
 
-import org.apache.shiro.cache.CacheException;
-
+/**
+ * 抽象配置类，提供通用的配置方法，接口方法还是交给具体实现类
+ * @author yuqs
+ */
 public abstract class AbstractConfiguration implements Configuration {
 
 	@Override
@@ -18,7 +20,7 @@ public abstract class AbstractConfiguration implements Configuration {
 	public Map<Long, String> getConfigMapsByName(String name) {
 		Object config = getConfigByName(name);
 		if(!(config instanceof Map)) {
-			throw new CacheException("Type conversion failure");
+			throw new ConfigurationException("Type conversion failure");
 		}
 		return (Map<Long, String>)config;
 	}

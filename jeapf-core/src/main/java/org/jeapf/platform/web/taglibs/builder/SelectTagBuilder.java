@@ -54,10 +54,10 @@ public class SelectTagBuilder implements TagBuilder {
 	private String cssClass;
 	//显示类型
 	private String displayType;
-	//配置数据来源，为空或0，默认从缓存获取，1为数据库中获取
+	//配置数据来源，为空或1，默认从缓存获取，2为数据库中获取，3为文件配置中获取
 	private String from;
 	//值列表
-	private List<Long> values = new ArrayList<Long>();
+	private List<String> values = new ArrayList<String>();
 	//选择列表
 	private Map<Long, String> items = new TreeMap<Long, String>();
 	
@@ -108,16 +108,18 @@ public class SelectTagBuilder implements TagBuilder {
 		if(value != null && !value.equals("")) {
 			String[] vs = value.split(";");
 			for(String v : vs) {
-				values.add(Long.parseLong(v));
+				values.add(v);
 			}
 		}
 		AbstractConfiguration configuration = null;
-		if(from == null || from.trim().length() == 0 || from.equals("2")) {
+		if(from == null || from.trim().length() == 0 || from.equals("1")) {
 			configuration = springContext.getBean(CacheConfiguration.class);
-		} else if(from.equals("1")) {
+		} else if(from.equals("2")) {
 			configuration = springContext.getBean(DatabaseConfiguration.class);
 		} else if(from.equals("3")) {
 			configuration = springContext.getBean(FileSystemConfiguration.class);
+		} else {
+			configuration = (AbstractConfiguration)springContext.getBean(from);
 		}
 		items = configuration.getConfigMapsByName(configName);
 	}
@@ -131,7 +133,7 @@ public class SelectTagBuilder implements TagBuilder {
 		while(it.hasNext()) {
 			Long key = it.next();
 			String value = items.get(key);
-			if(values != null && values.contains(key)) {
+			if(values != null && values.contains(String.valueOf(key))) {
 				buffer.append(value);
 			}
 		}
@@ -147,7 +149,7 @@ public class SelectTagBuilder implements TagBuilder {
 			Long key = it.next();
 			String value = items.get(key);
 			String selected = "";
-			if (values != null && values.contains(key)) {
+			if (values != null && values.contains(String.valueOf(key))) {
 				selected = "checked";
 			}
 			buffer.append("<label>");
@@ -183,10 +185,10 @@ public class SelectTagBuilder implements TagBuilder {
 			
 			while (it.hasNext()) {
 				selected = "";
-				Object key =  it.next();
+				Long key =  it.next();
 				String value = (String)items.get(key);
 				
-				if (values != null && values.contains(key.toString())) {
+				if (values != null && values.contains(String.valueOf(key))) {
 					selected = "selected";
 				}
 				

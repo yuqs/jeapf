@@ -37,6 +37,8 @@ public class SelectTag extends RequestContextAwareTag {
 	private String cssClass;
 	//是否文本显示
 	private String displayType;
+	//配置数据来源，为空或0，默认从缓存获取，1为数据库中获取
+	private String from;
 	//Spring的上下文
 	private WebApplicationContext springContext;
 	//Servlet的上下文
@@ -62,6 +64,7 @@ public class SelectTag extends RequestContextAwareTag {
 			dto.setProperty(SelectTagBuilder.STYLE, style);
 			dto.setProperty(SelectTagBuilder.CSSCLASS, cssClass);
 			dto.setProperty(SelectTagBuilder.DISPLAYTYPE, displayType);
+			dto.setProperty(SelectTagBuilder.FROM, from);
 			dto.setSpringContext(springContext);
 			SelectTagBuilder builder = springContext.getBean(SelectTagBuilder.class);
 			writer.write(builder.build(dto));
@@ -133,5 +136,13 @@ public class SelectTag extends RequestContextAwareTag {
 
 	public void setDisplayType(String displayType) {
 		this.displayType = displayType;
+	}
+
+	public String getFrom() {
+		return from;
+	}
+
+	public void setFrom(String from) {
+		this.from = from;
 	}
 }
