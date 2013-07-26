@@ -54,6 +54,10 @@ public class User extends SecurityEntity
 	private List<Role> roles = new ArrayList<Role>();
 	//权限列表（多对多关联）
 	private List<Authority> authorities = new ArrayList<Authority>();
+	
+	public User() {
+		
+	}
 
 	@Column(name = "username", unique = true, nullable = false, length = 50)
 	public String getUsername() {

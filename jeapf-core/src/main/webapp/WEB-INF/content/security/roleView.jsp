@@ -36,8 +36,6 @@
 				cellspacing="0">
 				<tr align="left">
 					<td colspan="1">
-						<input type="submit" class="button_70px" name="submit" value="提交">
-						&nbsp;&nbsp;
 						<input type="button" class="button_70px" name="reback" value="返回"
 							onclick="history.back()">
 					</td>

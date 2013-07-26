@@ -1,6 +1,7 @@
 package org.jeapf.framework.security.web;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -99,8 +100,8 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "view/{id}", method = RequestMethod.GET)
-	public String view(@PathVariable("id") Long id, Model model) {
-		model.addAttribute("user", userManager.get(id));
+	public String view(@PathVariable("id") Long id, Map<String, User> context) {
+		context.put("user", userManager.get(id));
 		return "security/userView";
 	}
 	

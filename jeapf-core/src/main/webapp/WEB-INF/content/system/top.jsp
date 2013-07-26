@@ -13,7 +13,7 @@
 <body bgcolor="#368EE0">
 <div class="navigation">
     <div class="container-fluid">
-        <a href="javascript:void(0)" class="brand" onclick="window.parent.location.href='${ctx }/index'"><font color="#fff">后台管理</font></a>
+        <a href="javascript:void(0)" class="brand" onclick="window.parent.location.href='${ctx }/index'"><font color="#fff">Jeapf</font></a>
         <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="右边栏">
             <i class="icon-reorder"></i>
         </a>

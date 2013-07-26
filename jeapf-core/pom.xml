@@ -149,6 +149,16 @@
 			<version>${spring.version}</version>
 		</dependency>
 		<!-- Wed end -->
+		<dependency>
+            <groupId>com.github.httl</groupId>
+            <artifactId>httl</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.httl</groupId>
+            <artifactId>httl-springmvc</artifactId>
+            <version>1.0.10</version>
+        </dependency>
 
 
 		<!-- UTILS begin -->
