@@ -1,8 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ include file="/common/taglibs.jsp"%>
-
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html lang="en">
+<html>
 	<head>
 		<title>配置管理</title>
 		<%@ include file="/common/meta.jsp"%>
@@ -66,11 +65,25 @@
 						<span>选项列表：</span>
 					</td>
 					<td class="td_table_2" colspan="3">
-						<table class="table_all" align="center" border="0" cellpadding="0" cellspacing="0" id="itemTable">
+						<table class="table_all" align="center" border="0" cellpadding="0" cellspacing="0" id="itemTable" style="margin: 0">
+							<tr>
+								<td align=center width=15% class="td_list_1" nowrap>
+									序号
+								</td>
+								<td align=center width=25% class="td_list_1" nowrap>
+									编号
+								</td>
+								<td align=center width=60% class="td_list_1" nowrap>
+									名称
+								</td>
+								<td align=center width=10% class="td_list_1" nowrap>
+									操作
+								</td>
+							</tr>
 							<c:forEach var="item" items="${dictionary.dictionaryItems}" varStatus="s">
 								<tr>
 									<td class="td_list_2">
-										<input type="text" value="${item.orderby }" name='orderbys' size="2" readonly>
+										<input type="text" value="${item.orderby }" name='orderbys' size="2">
 									</td>
 									<td class="td_list_2">
 										<input type="text" value='${item.code }' name='codes' class='input_50' >
@@ -79,7 +92,7 @@
 										<input type="text" value='${item.name }' name='itemNames' class='input_520' >
 									</td>
 									<td class="td_list_2">
-										<a href='javascript:void(0)' onclick='delRow(${item.orderby - 1})' class='btnDel' title='删除'>删除</a>
+										<a href='javascript:void(0)' onclick='delRow(${item.orderby})' class='btnDel' title='删除'>删除</a>
 									</td>
 								</tr>
 								<c:set var="index" value="${item.orderby }"/>
@@ -106,19 +119,24 @@
 				var table = document.getElementById("itemTable");
 				var row = table.insertRow(-1);
 				var cell = row.insertCell(-1);
-				cell.innerHTML = "<input type=\"text\" value=\"" + order + "\" name='orderbys' size=\"2\" readonly>";
+				if(order) {
+					cell.innerHTML = "<input type='text' value='" + order + "' name='orderbys' size='2'>";
+				} else {
+					cell.innerHTML = "<input type='text' value='" + 1 + "' name='orderbys' size='2'>";
+				}
+				
 				cell.className = "td_list_2";
 				
 				cell = row.insertCell(-1);
-				cell.innerHTML = "<input type=\"text\" value='' class='input_50' name='codes' >";
+				cell.innerHTML = "<input type='text' value='' class='input_50' name='codes' >";
 				cell.className = "td_list_2";
 				
 				cell = row.insertCell(-1);
-				cell.innerHTML = "<input type=\"text\" value='' class='input_520' name='itemNames' >";
+				cell.innerHTML = "<input type='text' value='' class='input_520' name='itemNames' >";
 				cell.className = "td_list_2";
 				
 				cell = row.insertCell(-1);
-				cell.innerHTML = "<a href='javascript:void(0)' onclick='delRow(" + (order - 1) + ")' class='btnDel' title='删除'>删除</a>";
+				cell.innerHTML = "<a href='javascript:void(0)' onclick='delRow(" + order + ")' class='btnDel' title='删除'>删除</a>";
 				cell.className = "td_list_2";
 				order = order + 1;
 			}
@@ -128,12 +146,12 @@
 				table.deleteRow(rowId);
 				order = order - 1;
 				var rns = table.rows.length;
-				if(rns >= 1) {
-					var cns = table.rows(0).cells.length;
+				if(rns >= 2) {
+					var cns = table.rows[0].cells.length;
 					var idx;
-					for(idx = 0; idx < rns; idx++) {
-						table.rows(idx).cells(0).innerHTML="<input type=\"text\" value=\"" + (idx + 1) + "\" name='orderbys' size=\"2\" readonly>";
-						table.rows(idx).cells(cns - 1).innerHTML="<a href='javascript:void(0)' onclick='delRow(" + idx + ")' class='btnDel' title='删除'>删除</a>";
+					for(idx = 1; idx < rns; idx++) {
+						table.rows[idx].cells[0].innerHTML="<input type='text' value='" + idx + "' name='orderbys' size='2'>";
+						table.rows[idx].cells[cns - 1].innerHTML="<a href='javascript:void(0)' onclick='delRow(" + idx + ")' class='btnDel' title='删除'>删除</a>";
 					}
 				}
 			}
